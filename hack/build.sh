@@ -49,3 +49,6 @@ function build_binaries() {
 
   rmdir output
 }
+
+mkdir -p "$2"
+build_binaries "$1" "$2"
