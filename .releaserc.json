@@ -1,0 +1,22 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "./hack/build.sh ${nextRelease.version} release"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": ["release/**"]
+      }
+    ],
+    "@semantic-release/git"
+  ],
+  "preset": "angular"
+}
