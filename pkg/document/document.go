@@ -2,9 +2,6 @@ package document
 
 import (
 	"encoding/json"
-	"errors"
-	"io"
-	"os"
 	"strings"
 
 	"github.com/kubernetes-client/go/kubernetes/client"
@@ -82,32 +79,4 @@ func (d *YamlDocument) Name() string {
 		return NameUnknown
 	}
 	return d.meta.Name
-}
-
-func ReadYamlFile(filename string) ([]*YamlDocument, error) {
-	docs := make([]*YamlDocument, 0)
-
-	f, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
-	reader := io.Reader(f)
-	dec := yaml.NewDecoder(reader)
-
-	for {
-		doc := &YamlDocument{}
-		err := dec.Decode(doc)
-		if errors.Is(err, io.EOF) {
-			break
-		}
-		if err != nil {
-			return nil, err
-		}
-		doc.Source = filename
-		docs = append(docs, doc)
-	}
-
-	return docs, nil
 }
