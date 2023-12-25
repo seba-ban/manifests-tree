@@ -52,13 +52,17 @@ func ReadYamls(dirOpts *DirWalkerOpts, inputs ...string) ([]*document.YamlDocume
 		if inputType != DirInputType {
 			var reader io.ReadCloser
 			var err error
-			switch GetInputType(input) {
+			switch inputType {
 
 			case FileInputType:
 				reader, err = GetFileReader(input)
 				absPath, filepathErr := filepath.Abs(input)
 				if filepathErr != nil {
-					return nil, err
+					if err != nil {
+						return nil, err
+					}
+					reader.Close()
+					return nil, filepathErr
 				}
 				input = absPath
 			case UrlInputType:
