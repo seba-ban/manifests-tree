@@ -93,5 +93,5 @@ func init() {
 
 	rootCmd.Flags().BoolVarP(&dirOpts.Recursive, "recursive", "r", true, "When reading directory, read yaml files recursively.")
 
-	rootCmd.Flags().StringVarP(&outputFormat, "output", "o", "tree", "Output format. One of: yaml, json, tree.")
+	rootCmd.Flags().StringVarP(&outputFormat, "output", "o", "tree", fmt.Sprintf("Output format. One of: %s.", printer.AvailableFormatsString))
 }

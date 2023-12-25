@@ -57,17 +57,8 @@ func (p *JsonPrinter) Print(data store.TreeData) {
 	fmt.Println(string(dumped))
 }
 
-func NewJsonPrinter(opts ...PrinterOption) *JsonPrinter {
-	printerOpts := &PrinterOpts{
-		WithPaths: false,
-		OnlyKinds: false,
-	}
-
-	for _, opt := range opts {
-		opt(printerOpts)
-	}
-
+func NewJsonPrinter(opts PrinterOpts) Printer {
 	return &JsonPrinter{
-		PrinterOpts: *printerOpts,
+		PrinterOpts: opts,
 	}
 }

@@ -38,17 +38,8 @@ func (p *TreePrinter) Print(data store.TreeData) {
 	fmt.Println(tree.String())
 }
 
-func NewTreePrinter(opts ...PrinterOption) *TreePrinter {
-	printerOpts := &PrinterOpts{
-		WithPaths: false,
-		OnlyKinds: false,
-	}
-
-	for _, opt := range opts {
-		opt(printerOpts)
-	}
-
+func NewTreePrinter(opts PrinterOpts) Printer {
 	return &TreePrinter{
-		PrinterOpts: *printerOpts,
+		PrinterOpts: opts,
 	}
 }
