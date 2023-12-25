@@ -25,6 +25,16 @@ func ReadYamlFileFromReader(reader io.ReadCloser, sourceName string) ([]*documen
 		if err != nil {
 			return nil, err
 		}
+
+		// it seems that in yaml files with lines like
+		// ---
+		// ---
+		// there will be empty documents that won't call
+		// the unmarshal function, so we need to skip them
+		if doc.StartLine == 0 {
+			continue
+		}
+
 		doc.Source = sourceName
 		docs = append(docs, doc)
 	}
