@@ -8,9 +8,10 @@ import (
 )
 
 var availableFormats = map[string]PrinterFactory{
-	"json": NewJsonPrinter,
-	"tree": NewTreePrinter,
-	"yaml": NewYamlPrinter,
+	"count": NewCountPrinter,
+	"json":  NewJsonPrinter,
+	"tree":  NewTreePrinter,
+	"yaml":  NewYamlPrinter,
 }
 
 var AvailableFormats = maps.Keys(availableFormats)
