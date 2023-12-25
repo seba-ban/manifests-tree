@@ -23,17 +23,8 @@ func (p *YamlPrinter) Print(data store.TreeData) {
 	fmt.Println(string(dumped))
 }
 
-func NewYamlPrinter(opts ...PrinterOption) *YamlPrinter {
-	printerOpts := &PrinterOpts{
-		WithPaths: false,
-		OnlyKinds: false,
-	}
-
-	for _, opt := range opts {
-		opt(printerOpts)
-	}
-
+func NewYamlPrinter(opts PrinterOpts) Printer {
 	return &YamlPrinter{
-		PrinterOpts: *printerOpts,
+		PrinterOpts: opts,
 	}
 }

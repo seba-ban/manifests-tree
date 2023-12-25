@@ -11,16 +11,4 @@ type PrinterOpts struct {
 	OnlyKinds bool
 }
 
-type PrinterOption func(*PrinterOpts)
-
-func WithPaths(withPaths bool) PrinterOption {
-	return func(o *PrinterOpts) {
-		o.WithPaths = withPaths
-	}
-}
-
-func WithOnlyKinds(onlyKinds bool) PrinterOption {
-	return func(o *PrinterOpts) {
-		o.OnlyKinds = onlyKinds
-	}
-}
+type PrinterFactory func(PrinterOpts) Printer
