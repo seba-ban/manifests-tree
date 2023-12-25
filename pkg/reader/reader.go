@@ -43,17 +43,34 @@ func ReadYamlFileFromReader(reader io.ReadCloser, sourceName string) ([]*documen
 }
 
 func ReadYamls(dirOpts *DirWalkerOpts, inputs ...string) ([]*document.YamlDocument, error) {
+
+	inputTypes := make([]InputType, len(inputs))
+	seen := make(map[string]bool)
+	for i, input := range inputs {
+		// check for duplicates
+		if _, ok := seen[input]; ok {
+			return nil, fmt.Errorf("duplicate input: %s", input)
+		}
+		seen[input] = true
+
+		// check if input type valid
+		inputTypes[i] = GetInputType(input)
+		if inputTypes[i] == UnknownInputType {
+			return nil, fmt.Errorf("unknown input type: %s", input)
+		}
+	}
+
 	docs := make([]*document.YamlDocument, 0)
 
-	for _, input := range inputs {
+	for i, input := range inputs {
 
-		inputType := GetInputType(input)
+		inputType := inputTypes[i]
 
 		if inputType != DirInputType {
 			var reader io.ReadCloser
 			var err error
-			switch inputType {
 
+			switch inputType {
 			case FileInputType:
 				reader, err = GetFileReader(input)
 				absPath, filepathErr := filepath.Abs(input)
@@ -70,8 +87,6 @@ func ReadYamls(dirOpts *DirWalkerOpts, inputs ...string) ([]*document.YamlDocume
 			case StdinInputType:
 				reader, err = GetStdinReader(input)
 				input = "stdin"
-			case UnknownInputType:
-				return nil, fmt.Errorf("unknown input type: %s", input)
 			}
 
 			if err != nil {
