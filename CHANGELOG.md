@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/seba-ban/manifests-tree/compare/v0.1.0...v0.2.0) (2023-12-25)
+
+
+### Features
+
+* added count output format ([1ec1865](https://github.com/seba-ban/manifests-tree/commit/1ec186508b5b2f3a98cacf95cab97a75a60285db))
+
 # [0.1.0](https://github.com/seba-ban/manifests-tree/compare/v0.0.0...v0.1.0) (2023-12-23)
 
 
