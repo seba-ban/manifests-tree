@@ -19,7 +19,7 @@ manifests-tree --include-kinds=depl https://github.com/cert-manager/cert-manager
 
 ## Output Formats
 
-Output can be either a tree, json, or yaml.
+For available outputs, check out help for the `-o, --output` flag.
 
 ## Possible Inputs
 
@@ -53,11 +53,12 @@ There can be one or more inputs which can be:
 
     ```bash
     helm template \
-    cert-manager cert-manager \
-    --repo https://charts.jetstack.io \
-    --namespace cert-manager \
-    --create-namespace \
-    --version v1.13.3 | manifests-tree -
+        cert-manager cert-manager \
+        --repo https://charts.jetstack.io \
+        --namespace cert-manager \
+        --create-namespace \
+        --version v1.13.3 \
+        | manifests-tree -
     ```
 
 ## Filtering
